@@ -1,11 +1,5 @@
 package com.game;
 
-import com.game.Cell;
-import com.game.DotCell;
-import com.game.HorizontalLineCell;
-import com.game.VerticalLineCell;
-import com.game.VacantCell;
-
 class Grid {
     final int
             length, // length of the grid
@@ -44,7 +38,7 @@ class Grid {
             for(int j=0; j<width; ++j) {
                 sb.append(cellTable[i][j].display);
             }
-            sb.append("\n");
+            sb.append(System.lineSeparator());
         }
         return sb.toString();
     }
