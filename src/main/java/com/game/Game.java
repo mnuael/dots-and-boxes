@@ -1,12 +1,16 @@
 package com.game;
 
 import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.PropertyTheme;
+import com.googlecode.lanterna.graphics.SimpleTheme;
+import com.googlecode.lanterna.graphics.Theme;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.util.Properties;
 
 class Game {
     public static void main(String[] args) throws IOException {
@@ -27,15 +31,6 @@ class Game {
             GridLayout gridLayout = new GridLayout(3);
             panel.setLayoutManager(gridLayout);
 
-
-            var button = new Button("-", new Runnable() {
-                @Override
-                public void run() {}
-            });
-            var button2 = new Button("|", new Runnable() {
-                @Override
-                public void run() {}
-            });
             panel.addComponent(new Label("o"));
             panel.addComponent(getButton("-"));
             panel.addComponent(new Label("o"));
@@ -66,13 +61,30 @@ class Game {
     }
 
     static Button getButton(String toRenderSymbol) {
-        Button button = new Button(" ", () -> {
-        }).setRenderer(new Button.FlatButtonRenderer());
+        Button button = new Button(" ", () -> {});
+
+        button.setRenderer(new Button.FlatButtonRenderer());
+        button.setTheme(getNormalButtonTheme());
+
         button.addListener( (b) -> {
             b.setEnabled(false);
-            Button.Listener listener = btn -> btn.setEnabled(false);
             b.setLabel(toRenderSymbol);
+            b.setTheme(getDisabledButtonTheme());
         });
         return button;
+    }
+
+    static PropertyTheme getNormalButtonTheme() {
+        var p = new Properties();
+        p.put("background[SELECTED]", "red");
+        p.put("background", "white");
+        return new PropertyTheme(p);
+    }
+
+    static PropertyTheme getDisabledButtonTheme() {
+        var p = new Properties();
+        p.put("foreground", "black");
+        p.put("background", "white");
+        return new PropertyTheme(p);
     }
 }
