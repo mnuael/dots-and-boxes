@@ -19,7 +19,7 @@ o---o---o
 
 o---o---o
 | B | B |
-o---o---o  --> N wins
+o---o---o  --> B wins
 | B | A |
 o---o---o
 ```
