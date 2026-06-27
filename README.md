@@ -13,13 +13,13 @@ o   o   o
 
 o---o---o 
 | A | B |
-o---o---o  --> A wins
+o---o---o  --> Player A wins
 | A | A | 
 o---o---o
 
 o---o---o
 | B | B |
-o---o---o  --> B wins
+o---o---o  --> Player B wins
 | B | A |
 o---o---o
 ```
