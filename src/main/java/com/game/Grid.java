@@ -8,10 +8,14 @@ class Grid {
             yDotCount; // number of dots to display along y axis
     final Cell[][] cellTable;
 
-    Grid(int xDotCount, int yDotCount) {
-        this.xDotCount = xDotCount;
-        this.yDotCount = yDotCount;
-        this.length = xDotCount + (xDotCount - 1);
+    int getCellCountPerLine() {
+        return length;
+    }
+
+    Grid(int dotCountPerLine) {
+        this.xDotCount = dotCountPerLine;
+        this.yDotCount = dotCountPerLine;
+        this.length = dotCountPerLine + (dotCountPerLine - 1);
         this.width = yDotCount + (yDotCount - 1);
         this.cellTable = new Cell[length][width];
 

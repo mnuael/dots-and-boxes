@@ -2,8 +2,6 @@ package com.game;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.PropertyTheme;
-import com.googlecode.lanterna.graphics.SimpleTheme;
-import com.googlecode.lanterna.graphics.Theme;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -20,26 +18,14 @@ class Game {
         try {
             terminal = defaultTerminalFactory.createTerminal();
 
-            final var grid = new Grid(4, 5);
             terminal.putString("Welcome to dots and boxes.");
             terminal.putCharacter('\n');
 
             var screen = new TerminalScreen(terminal);
             screen.startScreen();
 
-            var panel = new Panel();
-            GridLayout gridLayout = new GridLayout(3);
-            panel.setLayoutManager(gridLayout);
-
-            panel.addComponent(new Label("o"));
-            panel.addComponent(getButton("-"));
-            panel.addComponent(new Label("o"));
-            panel.addComponent(getButton("|"));
-            panel.addComponent(new EmptySpace());
-            panel.addComponent(getButton("|"));
-            panel.addComponent(new Label("o"));
-            panel.addComponent(getButton("-"));
-            panel.addComponent(new Label("o"));
+            final var grid = new Grid(8);
+            Panel panel = createPanel(grid);
 
             var window = new BasicWindow();
             window.setComponent(panel);
@@ -58,6 +44,31 @@ class Game {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    private static Panel createPanel(Grid grid) {
+        GridLayout gridLayout = new GridLayout(grid.getCellCountPerLine());
+        Panel panel = new Panel();
+        panel.setLayoutManager(gridLayout);
+
+        for(int y = 0; y < grid.getCellCountPerLine(); ++y) {
+            for (int x = 0; x < grid.getCellCountPerLine(); ++x) {
+                if(y%2==0) {
+                    if(x%2==0) {
+                        panel.addComponent(new Label("o"));
+                    } else {
+                        panel.addComponent(getButton("-"));
+                    }
+                } else {
+                    if(x%2==0) {
+                        panel.addComponent(getButton("|"));
+                    } else {
+                        panel.addComponent(new EmptySpace());
+                    }
+                }
+            }
+        }
+        return panel;
     }
 
     static Button getButton(String toRenderSymbol) {
