@@ -67,8 +67,15 @@ public class GameEngine {
 
     PropertyTheme getDisabledButtonTheme() {
         var p = new Properties();
-        p.put("foreground", "black");
+        var color = isPlayerRed()
+                ? "red"
+                : "blue";
+        p.put("foreground", color);
         p.put("background", "white");
         return new PropertyTheme(p);
+    }
+
+    private boolean isPlayerRed() {
+        return playerTicker % 2 == 0;
     }
 }
