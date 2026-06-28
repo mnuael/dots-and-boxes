@@ -1,6 +1,6 @@
 package com.game;
 
-class Grid {
+public class Grid {
     final int
             length, // length of the grid
             width, // width of the grid
