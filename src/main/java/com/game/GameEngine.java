@@ -1,5 +1,6 @@
 package com.game;
 
+import com.game.ui.Grid;
 import com.googlecode.lanterna.graphics.PropertyTheme;
 import com.googlecode.lanterna.gui2.*;
 

@@ -1,6 +1,4 @@
-package com.game;
-
-import com.game.Cell;
+package com.game.ui;
 
 /**
  * Cell that makes the "|" in the grid.

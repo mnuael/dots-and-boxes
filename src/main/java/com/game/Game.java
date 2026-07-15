@@ -1,5 +1,6 @@
 package com.game;
 
+import com.game.ui.Grid;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.TerminalScreen;

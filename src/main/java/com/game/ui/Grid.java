@@ -1,4 +1,4 @@
-package com.game;
+package com.game.ui;
 
 public class Grid {
     final int
@@ -8,11 +8,11 @@ public class Grid {
             yDotCount; // number of dots to display along y axis
     final Cell[][] cellTable;
 
-    int getCellCountPerLine() {
+    public int getCellCountPerLine() {
         return length;
     }
 
-    Grid(int dotCountPerLine) {
+    public Grid(int dotCountPerLine) {
         this.xDotCount = dotCountPerLine;
         this.yDotCount = dotCountPerLine;
         this.length = dotCountPerLine + (dotCountPerLine - 1);
