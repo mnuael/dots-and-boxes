@@ -22,12 +22,11 @@ public class GameMaster {
             throw new IllegalArgumentException("Number of dots must be at least 2 along x and y");
         }
 
-        
-         //determine number of boxes than can exist and create an array of that length
+        //determine number of boxes than can exist and create an array of that length
         final int boxCount = (xDotCount-1)*(yDotCount-1);
-        final var boxList = new ArrayList<Box>(boxCount);
+        final var boxList = new ArrayList<Box>(boxCount+1);
 
-         //iterate through each box and find a way to determine the dot positions of each
+        //iterate through each box and find a way to determine the dot positions of each
          for(int i = 0; i < boxCount; i++) {
             final Dot leftTop = new Dot(i,i);
             final Dot rightTop = new Dot(i+1,i);
@@ -35,7 +34,7 @@ public class GameMaster {
             final Dot rightBottom = new Dot(i+1,i+1);
 
             final Box box = new Box(leftTop,leftBottom,rightTop,rightBottom);
-            boxList.set(i, box);
+            boxList.add(i, box);
          }
         return boxList;
     }

@@ -1,5 +1,6 @@
 package com.game;
 
+import com.game.domain.GameMaster;
 import com.game.ui.Grid;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
@@ -24,6 +25,10 @@ class Game {
             screen.startScreen();
 
             final var grid = new Grid(8);
+            final var boxList = GameMaster.getInstance().generateBoxList(8,8);
+            for(final var box : boxList) {
+                System.out.println(box);
+            }
             final var engine = new GameEngine(grid);
             Panel panel = engine.createPanel();
 

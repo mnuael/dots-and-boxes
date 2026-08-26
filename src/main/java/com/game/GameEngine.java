@@ -22,8 +22,6 @@ public class GameEngine {
         GridLayout gridLayout = new GridLayout(gridState.getCellCountPerLine());
         Panel panel = new Panel();
         panel.setLayoutManager(gridLayout);
-
-
         for(int y = 0; y < gridState.getCellCountPerLine(); ++y) {
             for (int x = 0; x < gridState.getCellCountPerLine(); ++x) {
                 if(y%2==0) {

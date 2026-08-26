@@ -15,4 +15,9 @@ public class Box {
         this.rightTop = rightTop;
         this.rightBottom = rightBottom;
     }
+
+    @Override
+    public String toString() {
+        return leftTop+" | "+rightTop+"\n"+leftBottom+" | "+rightBottom+"\n";
+    }
 }
