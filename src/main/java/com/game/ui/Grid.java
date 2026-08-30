@@ -10,9 +10,14 @@ public class Grid {
             yDotCount; // number of dots to display along y axis
     final Cell[][] cellTable;
 
-    public int getCellCountPerLine() {
+    public int getLength() {
         return length;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
     public Cell[][] getCellTable() { return cellTable; }
 
     public Grid(int dotCountPerLine) {

@@ -1,6 +1,7 @@
 package com.game;
 
-import com.game.ui.Grid;
+import com.game.domain.Player;
+import com.game.ui.*;
 import com.googlecode.lanterna.graphics.PropertyTheme;
 import com.googlecode.lanterna.gui2.*;
 
@@ -18,24 +19,27 @@ public class GameEngine {
         this.gridState = gridState;
     }
 
+    /**
+     * Creates panel based on state of grid
+     * @return panel representing initial state of grid
+     */
     Panel createPanel() {
-        GridLayout gridLayout = new GridLayout(gridState.getCellCountPerLine());
+        GridLayout gridLayout = new GridLayout(gridState.getLength());
         Panel panel = new Panel();
         panel.setLayoutManager(gridLayout);
-        for(int y = 0; y < gridState.getCellCountPerLine(); ++y) {
-            for (int x = 0; x < gridState.getCellCountPerLine(); ++x) {
-                if(y%2==0) {
-                    if(x%2==0) {
-                        panel.addComponent(new Label("o"));
-                    } else {
-                        panel.addComponent(getButton("-"));
-                    }
+        for(int y = 0; y < gridState.getHeight(); ++y) {
+            for (int x = 0; x < gridState.getLength(); ++x) {
+                Cell cell = gridState.getCell(x, y);
+
+                if(cell instanceof DotCell dot) {
+                        panel.addComponent(new Label(dot.toString()));
+                } else if(cell instanceof HomeCell home) {
+                        final Player owner = home.getOwner();
+                        panel.addComponent(new Label(owner == null
+                                ? " "
+                                : owner.toString()));
                 } else {
-                    if(x%2==0) {
-                        panel.addComponent(getButton("|"));
-                    } else {
-                        panel.addComponent(new EmptySpace());
-                    }
+                    panel.addComponent(getButton(cell.toString()));
                 }
             }
         }

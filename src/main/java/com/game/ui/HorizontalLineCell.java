@@ -10,7 +10,7 @@ class HorizontalLineCell extends Cell implements Ownable {
 
     @Override
     public String toString() {
-        return " - ";
+        return "-";
     }
 
     @Override

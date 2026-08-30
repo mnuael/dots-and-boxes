@@ -15,7 +15,7 @@ class VerticalLineCell extends Cell implements Ownable{
 
     @Override
     public void setOwner(Player newOwner) {
-        if(owner != null && owner != newOwner) {
+        if(owner!=null && owner!=newOwner) {
             throw new InvalidMoveException("Line was already filled by " + owner);
         }
 
