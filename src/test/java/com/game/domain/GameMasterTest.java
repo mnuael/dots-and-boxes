@@ -7,9 +7,13 @@ public class GameMasterTest {
     final GameMaster testedClass = GameMaster.getInstance();
 
     @Test
-    public void test() {
-        var result = testedClass.generateBoxList(3,3);
+    public void generateGrid() {
+        var result = testedClass.generateGrid(2);
 
         Assertions.assertNotNull(result);
+        Assertions.assertEquals(3, result.getCellTable().length);
+        Assertions.assertEquals(3, result.getCellTable()[0].length);
+
+        System.out.println(result.toString());
     }
 }

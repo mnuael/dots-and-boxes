@@ -1,5 +1,5 @@
 package com.game.domain;
 
 public enum Player {
-    PLAYER_1, PLAYER_2;
+    P_1, P_2;
 }

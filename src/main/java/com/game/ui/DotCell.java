@@ -4,7 +4,8 @@ package com.game.ui;
  * Cell makes the "o" in the grid.
  */
 class DotCell extends Cell {
-    DotCell() {
-        super("o");
+    @Override
+    public String toString() {
+        return "o";
     }
 }

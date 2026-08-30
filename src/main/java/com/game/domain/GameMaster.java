@@ -1,7 +1,8 @@
 package com.game.domain;
 
+import com.game.ui.Grid;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class that determines who wins the game
@@ -37,5 +38,14 @@ public class GameMaster {
             boxList.add(i, box);
          }
         return boxList;
+    }
+
+    /**
+     * Generate a grid with the given number of dots per line
+     * @param dotCountPerLine number of dots per line
+     * @return grid representing board with given dots per line
+     */
+    public Grid generateGrid(int dotCountPerLine) {
+        return new Grid(dotCountPerLine);
     }
 }
