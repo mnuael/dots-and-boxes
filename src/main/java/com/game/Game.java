@@ -1,6 +1,5 @@
 package com.game;
 
-import com.game.domain.GameMaster;
 import com.game.ui.Grid;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
@@ -17,34 +16,21 @@ class Game {
         Terminal terminal;
         try {
             terminal = defaultTerminalFactory.createTerminal();
-
             terminal.putString("Welcome to dots and boxes.");
             terminal.putCharacter('\n');
 
             var screen = new TerminalScreen(terminal);
             screen.startScreen();
-
-            final var grid = new Grid(8);
-            final var boxList = GameMaster.getInstance().generateBoxList(8,8);
-            for(final var box : boxList) {
-                System.out.println(box);
-            }
-            final var engine = new GameEngine(grid);
-            Panel panel = engine.createPanel();
+            screen.refresh();
+            final var grid = new Grid(3);
+            final var engine = new GameEngine(grid, screen);
+            engine.initPanel();
 
             var window = new BasicWindow();
-            window.setComponent(panel);
+            window.setComponent(engine.getMainPanel());
 
             var gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), new EmptySpace(TextColor.ANSI.BLUE));
             gui.addWindowAndWait(window);
-
-            var gridStr = grid.toString();
-            String[] split = gridStr.split("\n");
-            for (String s : split) {
-                terminal.putString(s);
-                terminal.putCharacter('\n');
-            }
-
             terminal.flush();
         } catch (Exception e) {
             throw e;

@@ -4,10 +4,16 @@ import com.game.domain.Player;
 import com.game.ui.*;
 import com.googlecode.lanterna.graphics.PropertyTheme;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.screen.Screen;
 
+import java.io.IOException;
 import java.util.Properties;
 
 public class GameEngine {
+    Panel mainPanel;
+    Panel gridPanel;
+    Panel scorePanel;
+    Screen screen;
     // A ticker to keep track of whose turn it is
     // odd is player 1 red
     // even is plater 2 blue
@@ -15,15 +21,26 @@ public class GameEngine {
 
     final Grid gridState;
 
-    public GameEngine(Grid gridState) {
+    Panel getMainPanel() { return mainPanel; }
+
+    public GameEngine(Grid gridState, Screen screen) {
         this.gridState = gridState;
+        this.screen = screen;
+    }
+
+    void initPanel() {
+        Panel panel = new Panel();
+        initGridPanel();
+        updateScorePanel();
+        panel.addComponent(gridPanel);
+        panel.addComponent(scorePanel.withBorder(Borders.singleLine("SCORE PANEL")));
+        mainPanel = panel;
     }
 
     /**
-     * Creates panel based on state of grid
-     * @return panel representing initial state of grid
+     * Initialises and sets a grid panel.
      */
-    Panel createPanel() {
+    void initGridPanel() {
         GridLayout gridLayout = new GridLayout(gridState.getLength());
         Panel panel = new Panel();
         panel.setLayoutManager(gridLayout);
@@ -32,18 +49,18 @@ public class GameEngine {
                 Cell cell = gridState.getCell(x, y);
 
                 if(cell instanceof DotCell dot) {
-                        panel.addComponent(new Label(dot.toString()));
+                    panel.addComponent(new Label(dot.toString()));
                 } else if(cell instanceof HomeCell home) {
-                        final Player owner = home.getOwner();
-                        panel.addComponent(new Label(owner == null
-                                ? " "
-                                : owner.toString()));
+                    final Player owner = home.getOwner();
+                    panel.addComponent(new Label(owner == null
+                            ? " "
+                            : owner.toString()));
                 } else {
                     panel.addComponent(getButton(cell.toString(), x, y));
                 }
             }
         }
-        return panel;
+        gridPanel = panel;
     }
 
     Button getButton(String toRenderSymbol, int x, int y) {
@@ -60,10 +77,32 @@ public class GameEngine {
                     ? Player.P_2
                     : Player.P_1;
             this.gridState.fill(x, y, player);
+            // TODO how to update score panel
             System.out.println(gridState);
-            this.playerTicker++;
+            playerTicker++;
+            updateScorePanel();
+            try {
+                screen.refresh();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
         return button;
+    }
+
+    private void updateScorePanel() {
+        if(scorePanel == null) {
+            scorePanel = new Panel();
+        }
+        scorePanel.removeAllComponents();
+        new Label("Player 1: "+calculateScore(Player.P_1)).addTo(scorePanel);
+        new Label("Player 2: "+calculateScore(Player.P_2)).addTo(scorePanel);
+        new Label("Active: "+getActivePlayer()).addTo(scorePanel);
+    }
+
+    private String calculateScore(Player player) {
+        // TODO: calculate score
+        return "0";
     }
 
     PropertyTheme getNormalButtonTheme() {
@@ -85,5 +124,11 @@ public class GameEngine {
 
     private boolean isPlayerRed() {
         return playerTicker % 2 == 0;
+    }
+
+    Player getActivePlayer() {
+        return playerTicker%2==0
+                ? Player.P_1
+                : Player.P_2;
     }
 }
