@@ -22,24 +22,33 @@ public class Grid {
         this.height = yDotCount + (yDotCount - 1);
         this.cellTable = new Cell[length][height];
 
-        for(int i=0; i<length; ++i) {
-            for(int j = 0; j< height; ++j) {
-                if(i%2==0) { // 0, 1, 3 ..
+        /*
+         * O   -   O start iterating from top to bottom, left to right,
+         * |       |
+         * O   -   O
+         *
+         * 2 x 2 grid with 2 dots per line
+         */
 
-                    if(j%2==0) {
-                        cellTable[i][j] = new DotCell();
+        for(int y=0;y<height;++y) {
+            for(int x=0;x<length;++x) {
+                if(y%2==0) {
+                    if(x%2==0) {
+                        cellTable[x][y] = new DotCell();
                     } else {
-                        cellTable[i][j] = new HomeCell();
+                        cellTable[x][y] = new HorizontalLineCell();
                     }
-                } else { // even lines
-                    cellTable[i][j] = new HomeCell();
+                } else {
+                    cellTable[x][y] = x%2==0
+                            ? new VerticalLineCell()
+                            : new HomeCell();
                 }
             }
         }
     }
 
     public void fill(int xCellPos, int yCellPos, Player player) throws Exception {
-        if(xCellPos < 0 || yCellPos < 0) {
+        if(xCellPos<0 || yCellPos<0) {
             throw new InvalidMoveException("Co ordinates cannot be negative.");
         }
 
@@ -56,12 +65,14 @@ public class Grid {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        for(int i=0; i<length; ++i) {
-            for(int j=0; j<height; ++j) {
-                sb.append(cellTable[i][j]);
+        for(int y=0;y<height;++y) {
+            for(int x=0;x<length;++x) {
+                sb.append(cellTable[x][y]);
+//                sb.append(" " + cellTable[x][y] +"["+x+","+y+"]" );
             }
             sb.append(System.lineSeparator());
         }
+        sb.append("Grid size: "+xDotCount+"x"+yDotCount);
         return sb.toString();
     }
 

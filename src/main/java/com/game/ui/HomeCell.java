@@ -5,7 +5,7 @@ import com.game.domain.Player;
 /**
  * Cell that represents the boxes that can be owned by the player.
  */
-class HomeCell extends Cell {
+class HomeCell extends Cell implements Ownable {
     Player owner;
 
     public Player getOwner() { return owner; }
