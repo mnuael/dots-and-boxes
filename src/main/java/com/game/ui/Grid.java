@@ -29,10 +29,10 @@ public class Grid {
                     if(j%2==0) {
                         cellTable[i][j] = new DotCell();
                     } else {
-                        cellTable[i][j] = new VacantCell();
+                        cellTable[i][j] = new HomeCell();
                     }
                 } else { // even lines
-                    cellTable[i][j] = new VacantCell();
+                    cellTable[i][j] = new HomeCell();
                 }
             }
         }
@@ -48,7 +48,7 @@ public class Grid {
         }
 
         final Cell cell = cellTable[xCellPos][yCellPos];
-        if(cell instanceof VacantCell v) {
+        if(cell instanceof HomeCell v) {
             v.setOwner(player);
         }
     }

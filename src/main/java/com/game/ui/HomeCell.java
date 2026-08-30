@@ -3,9 +3,9 @@ package com.game.ui;
 import com.game.domain.Player;
 
 /**
- * Cell makes the "   " (3 empty space) in the grid.
+ * Cell that represents the boxes that can be owned by the player.
  */
-class VacantCell extends Cell {
+class HomeCell extends Cell {
     Player owner;
 
     public Player getOwner() { return owner; }
