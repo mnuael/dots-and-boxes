@@ -14,6 +14,7 @@ public class GameEngine {
     Panel gridPanel;
     Panel scorePanel;
     Screen screen;
+
     // A ticker to keep track of whose turn it is
     // odd is player 1 red
     // even is plater 2 blue
@@ -68,16 +69,14 @@ public class GameEngine {
 
         button.setRenderer(new Button.FlatButtonRenderer());
         button.setTheme(getNormalButtonTheme());
-
         button.addListener((b) -> {
             b.setEnabled(false);
             b.setLabel(toRenderSymbol);
-            b.setTheme(getDisabledButtonTheme());
+            b.setTheme(getPlayerBasedButtonTheme());
             Player player = playerTicker%2==0
                     ? Player.P_2
                     : Player.P_1;
             this.gridState.fill(x, y, player);
-            // TODO how to update score panel
             System.out.println(gridState);
             playerTicker++;
             updateScorePanel();
@@ -107,23 +106,19 @@ public class GameEngine {
 
     PropertyTheme getNormalButtonTheme() {
         var p = new Properties();
-        p.put("background[SELECTED]", "red");
+        p.put("background[SELECTED]", "green");
         p.put("background", "white");
         return new PropertyTheme(p);
     }
 
-    PropertyTheme getDisabledButtonTheme() {
+    PropertyTheme getPlayerBasedButtonTheme() {
         var p = new Properties();
-        var color = isPlayerRed()
+        var color = getActivePlayer() == Player.P_1
                 ? "red"
                 : "blue";
-        p.put("foreground", color);
-        p.put("background", "white");
+        p.put("foreground", "white");
+        p.put("background", color);
         return new PropertyTheme(p);
-    }
-
-    private boolean isPlayerRed() {
-        return playerTicker % 2 == 0;
     }
 
     Player getActivePlayer() {
