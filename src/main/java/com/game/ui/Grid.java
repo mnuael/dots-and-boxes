@@ -47,7 +47,14 @@ public class Grid {
         }
     }
 
-    public void fill(int xCellPos, int yCellPos, Player player) throws Exception {
+    /**
+     * Fill in a cell by a player
+     * @param xCellPos x co-ordinate
+     * @param yCellPos y co-ordinate
+     * @param player player who fills in the cell
+     * @throws InvalidMoveException when cell cannot be filled in
+     */
+    public void fill(int xCellPos, int yCellPos, Player player) throws InvalidMoveException {
         if(xCellPos<0 || yCellPos<0) {
             throw new InvalidMoveException("Co ordinates cannot be negative.");
         }
@@ -57,8 +64,8 @@ public class Grid {
         }
 
         final Cell cell = cellTable[xCellPos][yCellPos];
-        if(cell instanceof HomeCell v) {
-            v.setOwner(player);
+        if(cell instanceof Ownable ownable) {
+            ownable.setOwner(player);
         }
     }
 
@@ -72,7 +79,7 @@ public class Grid {
             }
             sb.append(System.lineSeparator());
         }
-        sb.append("Grid size: "+xDotCount+"x"+yDotCount);
+        sb.append("Grid size: ").append(xDotCount).append("x").append(yDotCount);
         return sb.toString();
     }
 
