@@ -6,4 +6,6 @@ public interface Ownable {
     void setOwner(Player owner);
 
     Player getOwner();
+
+    String getDisplay();
 }

@@ -5,7 +5,7 @@ import com.game.domain.Player;
 /**
  * Cell that makes the "|" in the grid.
  */
-class VerticalLineCell extends Cell implements Ownable{
+class VerticalLineCell extends Cell implements Ownable {
     Player owner;
 
     @Override
@@ -15,7 +15,7 @@ class VerticalLineCell extends Cell implements Ownable{
 
     @Override
     public void setOwner(Player newOwner) {
-        if(owner!=null && owner!=newOwner) {
+        if (owner != null && owner != newOwner) {
             throw new InvalidMoveException("Line was already filled by " + owner);
         }
 
@@ -23,5 +23,12 @@ class VerticalLineCell extends Cell implements Ownable{
     }
 
     @Override
-    public Player getOwner() { return owner; }
+    public Player getOwner() {
+        return owner;
+    }
+
+    @Override
+    public String getDisplay() {
+        return owner != null ? toString() : "";
+    }
 }

@@ -39,14 +39,14 @@ public class GameEngine {
                                 ? " "
                                 : owner.toString()));
                 } else {
-                    panel.addComponent(getButton(cell.toString()));
+                    panel.addComponent(getButton(cell.toString(), x, y));
                 }
             }
         }
         return panel;
     }
 
-    Button getButton(String toRenderSymbol) {
+    Button getButton(String toRenderSymbol, int x, int y) {
         Button button = new Button(" ", () -> {});
 
         button.setRenderer(new Button.FlatButtonRenderer());
@@ -56,6 +56,11 @@ public class GameEngine {
             b.setEnabled(false);
             b.setLabel(toRenderSymbol);
             b.setTheme(getDisabledButtonTheme());
+            Player player = playerTicker%2==0
+                    ? Player.P_2
+                    : Player.P_1;
+            this.gridState.fill(x, y, player);
+            System.out.println(gridState);
             this.playerTicker++;
         });
         return button;

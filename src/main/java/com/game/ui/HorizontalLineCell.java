@@ -24,4 +24,9 @@ class HorizontalLineCell extends Cell implements Ownable {
 
     @Override
     public Player getOwner() { return owner; }
+
+    @Override
+    public String getDisplay() {
+        return owner != null ? toString(): "";
+    }
 }

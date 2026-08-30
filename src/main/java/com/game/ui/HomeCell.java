@@ -10,6 +10,11 @@ public class HomeCell extends Cell implements Ownable {
 
     public Player getOwner() { return owner; }
 
+    @Override
+    public String getDisplay() {
+        return owner != null ? toString(): "";
+    }
+
     public void setOwner(Player player) {
         if(owner != null && player != owner) {
             throw new InvalidMoveException("This cell belongs to " + player.toString());

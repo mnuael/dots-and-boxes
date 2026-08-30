@@ -79,8 +79,12 @@ public class Grid {
         final StringBuilder sb = new StringBuilder();
         for(int y=0;y<height;++y) {
             for(int x=0;x<length;++x) {
-                sb.append(cellTable[x][y]);
-//                sb.append(" " + cellTable[x][y] +"["+x+","+y+"]" );
+                Cell cell = cellTable[x][y];
+                if(cell instanceof Ownable ownable) {
+                    sb.append(ownable.getDisplay());
+                } else {
+                    sb.append(cellTable[x][y]);
+                }
             }
             sb.append(System.lineSeparator());
         }
