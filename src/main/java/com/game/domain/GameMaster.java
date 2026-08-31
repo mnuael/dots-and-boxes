@@ -1,6 +1,8 @@
 package com.game.domain;
 
+import com.game.ui.Cell;
 import com.game.ui.Grid;
+import com.game.ui.HomeCell;
 
 import java.util.ArrayList;
 
@@ -18,28 +20,6 @@ public class GameMaster {
         return instance;
     }
 
-    public ArrayList<Box> generateBoxList(int xDotCount, int yDotCount) {
-        if(xDotCount < 2 || yDotCount < 2) {
-            throw new IllegalArgumentException("Number of dots must be at least 2 along x and y");
-        }
-
-        //determine number of boxes than can exist and create an array of that length
-        final int boxCount = (xDotCount-1)*(yDotCount-1);
-        final var boxList = new ArrayList<Box>(boxCount+1);
-
-        //iterate through each box and find a way to determine the dot positions of each
-         for(int i = 0; i < boxCount; i++) {
-            final Dot leftTop = new Dot(i,i);
-            final Dot rightTop = new Dot(i+1,i);
-            final Dot leftBottom = new Dot(i,i+1);
-            final Dot rightBottom = new Dot(i+1,i+1);
-
-            final Box box = new Box(leftTop,leftBottom,rightTop,rightBottom);
-            boxList.add(i, box);
-         }
-        return boxList;
-    }
-
     /**
      * Generate a grid with the given number of dots per line
      * @param dotCountPerLine number of dots per line
@@ -47,5 +27,26 @@ public class GameMaster {
      */
     public Grid generateGrid(int dotCountPerLine) {
         return new Grid(dotCountPerLine);
+    }
+
+    /**
+     * Get score of player by counting number of home cells owned by player
+     * @param player player to check score
+     * @param grid grid containing cells
+     * @return number of home cells owned by given player
+     */
+    public int getScore(Player player, Grid grid) {
+        int score = 0;
+        for(int x=0;x<grid.getLength();++x) {
+            for(int y=0;y<grid.getHeight();++y) {
+                Cell cell = grid.getCell(x,y);
+                if(cell instanceof HomeCell homeCell) {
+                    if(homeCell.getOwner()==player) {
+                        score++;
+                    }
+                }
+            }
+        }
+        return score;
     }
 }
