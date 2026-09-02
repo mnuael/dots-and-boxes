@@ -8,6 +8,10 @@ import com.game.domain.Player;
 public class HomeCell extends Cell implements Ownable {
     Player owner;
 
+    HomeCell(int x, int y) {
+        super(x, y);
+    }
+
     public Player getOwner() { return owner; }
 
     @Override

@@ -5,8 +5,12 @@ import com.game.domain.Player;
 /**
  * Cell that makes the "---" in the grid.
  */
-class HorizontalLineCell extends Cell implements Ownable {
+public class HorizontalLineCell extends Cell implements Ownable {
     Player owner;
+
+    HorizontalLineCell(int x, int y) {
+        super(x, y);
+    }
 
     @Override
     public String toString() {

@@ -5,8 +5,12 @@ import com.game.domain.Player;
 /**
  * Cell that makes the "|" in the grid.
  */
-class VerticalLineCell extends Cell implements Ownable {
+public class VerticalLineCell extends Cell implements Ownable {
     Player owner;
+
+    VerticalLineCell(int x, int y) {
+        super(x, y);
+    }
 
     @Override
     public String toString() {

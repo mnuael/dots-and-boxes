@@ -39,14 +39,14 @@ public class Grid {
             for(int x=0;x<length;++x) {
                 if(y%2==0) {
                     if(x%2==0) {
-                        cellTable[x][y] = new DotCell();
+                        cellTable[x][y] = new DotCell(x,y);
                     } else {
-                        cellTable[x][y] = new HorizontalLineCell();
+                        cellTable[x][y] = new HorizontalLineCell(x,y);
                     }
                 } else {
                     cellTable[x][y] = x%2==0
-                            ? new VerticalLineCell()
-                            : new HomeCell();
+                            ? new VerticalLineCell(x,y)
+                            : new HomeCell(x,y);
                 }
             }
         }

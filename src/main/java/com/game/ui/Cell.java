@@ -4,4 +4,19 @@ package com.game.ui;
  *
  * For example a 4x4 grid has 16 cells.
  */
-public abstract class Cell {}
+public abstract class Cell {
+    int x;
+    int y;
+
+    Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
+}

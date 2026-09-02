@@ -22,7 +22,7 @@ class Game {
             var screen = new TerminalScreen(terminal);
             screen.startScreen();
             screen.refresh();
-            final var grid = new Grid(3);
+            final var grid = new Grid(20);
             final var engine = new GameEngine(grid, screen);
             engine.initPanel();
 

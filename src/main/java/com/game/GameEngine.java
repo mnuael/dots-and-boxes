@@ -1,7 +1,9 @@
 package com.game;
 
+import com.game.domain.GameMaster;
 import com.game.domain.Player;
 import com.game.ui.*;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.PropertyTheme;
 import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
@@ -73,11 +75,10 @@ public class GameEngine {
             b.setEnabled(false);
             b.setLabel(toRenderSymbol);
             b.setTheme(getPlayerBasedButtonTheme());
-            Player player = playerTicker%2==0
-                    ? Player.P_2
-                    : Player.P_1;
+            Player player = getActivePlayer();
             this.gridState.fill(x, y, player);
             System.out.println(gridState);
+            GameMaster.getInstance().updateGridAfterPlayerMove(player, gridState, x, y);
             playerTicker++;
             updateScorePanel();
             try {
@@ -94,14 +95,22 @@ public class GameEngine {
             scorePanel = new Panel();
         }
         scorePanel.removeAllComponents();
-        new Label("Player 1: "+calculateScore(Player.P_1)).addTo(scorePanel);
-        new Label("Player 2: "+calculateScore(Player.P_2)).addTo(scorePanel);
-        new Label("Active: "+getActivePlayer()).addTo(scorePanel);
+        final Label playerOneLabel = new Label("Player 1: "+calculateScore(Player.P_1));
+        final Label playerTwoLabel = new Label("Player 2: "+calculateScore(Player.P_2));
+        playerOneLabel.addTo(scorePanel);
+        playerTwoLabel.addTo(scorePanel);
+        final Label activePlayerLabel = new Label("Active: "+getActivePlayer());
+        if(getActivePlayer()==Player.P_1) {
+            playerOneLabel.setBackgroundColor(getActivePlayerColorAnsi());
+        }
+        if(getActivePlayer()==Player.P_2) {
+            playerTwoLabel.setBackgroundColor(getActivePlayerColorAnsi());
+        }
     }
 
     private String calculateScore(Player player) {
-        // TODO: calculate score
-        return "0";
+        final int score = GameMaster.getInstance().getScore(player, gridState);
+        return String.valueOf(score);
     }
 
     PropertyTheme getNormalButtonTheme() {
@@ -113,12 +122,22 @@ public class GameEngine {
 
     PropertyTheme getPlayerBasedButtonTheme() {
         var p = new Properties();
-        var color = getActivePlayer() == Player.P_1
-                ? "red"
-                : "blue";
+        var color = getActivePlayerColor();
         p.put("foreground", "white");
         p.put("background", color);
         return new PropertyTheme(p);
+    }
+
+    private String getActivePlayerColor() {
+        return getActivePlayer() == Player.P_1
+                ? "red"
+                : "blue";
+    }
+
+    private TextColor getActivePlayerColorAnsi() {
+        return getActivePlayer() == Player.P_1
+                ? TextColor.ANSI.RED
+                : TextColor.ANSI.BLUE;
     }
 
     Player getActivePlayer() {
