@@ -23,3 +23,7 @@ o---o---o  --> Player B wins
 | B | A |
 o---o---o
 ```
+
+# Possible Improvements
+* Before starting a game, show dialog to let user set size of the grid
+* Notify player when a player wins a game
