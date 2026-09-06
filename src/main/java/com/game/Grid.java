@@ -1,8 +1,6 @@
-package com.game.ui;
+package com.game;
 
-import com.game.domain.Player;
-
-public class Grid {
+class Grid {
     final int
             length, // length of the grid
             height, // width of the grid

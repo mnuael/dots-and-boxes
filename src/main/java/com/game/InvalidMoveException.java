@@ -1,6 +1,6 @@
-package com.game.ui;
+package com.game;
 
-public class InvalidMoveException extends RuntimeException {
+class InvalidMoveException extends RuntimeException {
     public InvalidMoveException(String message) {
         super(message);
     }

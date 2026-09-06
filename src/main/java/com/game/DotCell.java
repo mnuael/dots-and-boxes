@@ -1,9 +1,9 @@
-package com.game.ui;
+package com.game;
 
 /**
  * Cell makes the "o" in the grid.
  */
-public class DotCell extends Cell {
+class DotCell extends Cell {
     DotCell(int x, int y) {
         super(x, y);
     }

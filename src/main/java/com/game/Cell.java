@@ -1,10 +1,9 @@
-package com.game.ui;
+package com.game;
 /**
  * Cells make up a grid.
- *
  * For example a 4x4 grid has 16 cells.
  */
-public abstract class Cell {
+abstract class Cell {
     int x;
     int y;
 

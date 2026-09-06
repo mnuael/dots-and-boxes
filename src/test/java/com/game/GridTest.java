@@ -1,6 +1,5 @@
-package com.game.ui;
+package com.game;
 
-import com.game.domain.Player;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -45,7 +44,7 @@ public class GridTest {
 
     @Test
     @DisplayName("fill() sets owner on line cell")
-    public void fillLine() throws Exception {
+    public void fillLine() {
         final Grid grid = new Grid(2);
 
         Assertions.assertEquals(3,grid.getCellTable().length);

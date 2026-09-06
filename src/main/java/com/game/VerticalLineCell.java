@@ -1,11 +1,9 @@
-package com.game.ui;
-
-import com.game.domain.Player;
+package com.game;
 
 /**
  * Cell that makes the "|" in the grid.
  */
-public class VerticalLineCell extends Cell implements Ownable {
+class VerticalLineCell extends Cell implements Ownable {
     Player owner;
 
     VerticalLineCell(int x, int y) {

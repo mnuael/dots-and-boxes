@@ -1,11 +1,9 @@
-package com.game.ui;
-
-import com.game.domain.Player;
+package com.game;
 
 /**
  * Cell that represents the boxes that can be owned by the player.
  */
-public class HomeCell extends Cell implements Ownable {
+class HomeCell extends Cell implements Ownable {
     Player owner;
 
     HomeCell(int x, int y) {
